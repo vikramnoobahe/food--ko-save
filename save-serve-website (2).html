@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save & Serve - Turn Surplus into Support</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2D7D32;
+            --secondary-orange: #FF8F00;
+            --warm-white: #FEFEFE;
+            --light-green: #E8F5E8;
+            --text-dark: #2C2C2C;
+            --text-light: #666;
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary-green: #4CAF50;
+            --secondary-orange: #FFB74D;
+            --warm-white: #1A1A1A;
+            --light-green: #2C2C2C;
+            --text-dark: #FFFFFF;
+            --text-light: #CCCCCC;
+            --shadow: 0 4px 20px rgba(255,255,255,0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--warm-white);
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--warm-white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            margin: 3px 0;
+            transition: var(--transition);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-menu a:hover {
+            background: var(--light-green);
+            color: var(--primary-green);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-green);
+            color: var(--warm-white);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-orange) 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="70" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary-green);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--primary-green);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--primary-green);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Why It Matters */
+        .why-matters {
+            background: var(--light-green);
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .impact-card {
+            background: var(--warm-white);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .impact-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            color: var(--secondary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .impact-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        /* How It Works */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--light-green);
+        }
+
+        .form-container {
+            background: var(--warm-white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-embed {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .form-instructions {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-instructions h3 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Get Involved */
+        .get-involved-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .involvement-card {
+            background: var(--warm-white);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .involvement-card:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-5px);
+        }
+
+        .involvement-card i {
+            font-size: 2.5rem;
+            color: var(--secondary-orange);
+            margin-bottom: 1rem;
+        }
+
+        /* Impact Dashboard */
+        .impact-dashboard {
+            background: var(--light-green);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--warm-white);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-card p {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .impact-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-orange));
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .highlight-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .highlight-card strong {
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--warm-white);
+            padding: 3rem 0 1rem;
+        }
+
+        [data-theme="dark"] footer {
+            background: #0D0D0D;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #CCC;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+            color: #888;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--warm-white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+                padding: 2rem 0;
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 0.5rem 0;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+
+            .nav-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .nav-toggle.active span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .nav-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .nav-toggle.active span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .form-container {
+                padding: 2rem 1rem;
+            }
+
+            .form-embed {
+                height: 600px;
+            }
+
+            .cta-button {
+                display: block;
+                margin: 1rem auto;
+                max-width: 280px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .impact-highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-toggle {
+                margin-top: 1rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        .loading {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">🌱 Save & Serve</a>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#why">Why It Matters</a></li>
+                <li><a href="#how">How It Works</a></li>
+                <li><a href="#register">Register Food</a></li>
+                <li><a href="#involve">Get Involved</a></li>
+                <li><a href="#impact">Our Impact</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">🌙 Dark</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content loading">
+                    <h1>Turn Surplus into Support</h1>
+                    <p>Connect your extra food with those who need it most. Join our community-driven platform to reduce waste and fight hunger together.</p>
+                    <a href="#register" class="cta-button">Register Your Food Waste</a>
+                    <a href="#how" class="cta-button secondary">Learn How It Works</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="why" class="why-matters">
+            <div class="container">
+                <h2 class="section-title loading">Why Food Waste Management Matters</h2>
+                <p class="section-subtitle loading">Every year, millions of tons of food go to waste while communities struggle with hunger. Together, we can make a difference.</p>
+                
+                <div class="impact-grid">
+                    <div class="impact-card loading">
+                        <div class="impact-icon">🍽️</div>
+                        <h3>Fight Community Hunger</h3>
+                        <p>Your surplus food can provide nutritious meals to families in need, directly addressing food insecurity in our communities.</p>
+                    </div>
+                    <div class="impact-card loading">
+                        <div class="impact-icon">🌍</div>
+                        <h3>Protect Our Environment</h3>
+                        <p>Food waste in landfills produces methane gas, contributing to climate change. Redirecting food reduces environmental impact.</p>
+                    </div>
+                    <div class="impact-card loading">
+                        <div class="impact-icon">💰</div>
+                        <h3>Economic & Ethical Impact</h3>
+                        <p>Reducing food waste saves money and resources while ensuring food reaches those who need it most - it's simply the right thing to do.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how" class="how-it-works">
+            <div class="container">
+                <h2 class="section-title loading">How It Works</h2>
+                <p class="section-subtitle loading">Three simple steps to turn your food surplus into community support</p>
+                
+                <div class="steps-container">
+                    <div class="step loading">
+                        <div class="step-number">1</div>
+                        <h3>Submit Food Details</h3>
+                        <p>Use our simple form to register your surplus food. Include details like quantity, type, and pickup location.</p>
+                    </div>
+                    <div class="step loading">
+                        <div class="step-number">2</div>
+                        <h3>We Connect & Coordinate</h3>
+                        <p>Our team immediately connects with local NGOs, food banks, and community kitchens to arrange distribution.</p>
+                    </div>
+                    <div class="step loading">
+                        <div class="step-number">3</div>
+                        <h3>Food Gets Distributed</h3>
+                        <p>Volunteers pick up the food and deliver it to those in need, ensuring nothing goes to waste.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="register" class="form-section">
+            <div class="container">
+                <h2 class="section-title loading">Register Your Food Waste</h2>
+                
+                <div class="form-container loading">
+                    <div class="form-instructions">
+                        <h3>Ready to Make a Difference?</h3>
+                        <p>Fill out the form below to register your surplus food. Our team will contact you within 2 hours to arrange pickup.</p>
+                    </div>
+                    
+                    <!-- Note: Replace this URL with your actual Google Form embed URL -->
+                    <iframe 
+                        class="form-embed" 
+                        src="https://docs.google.com/forms/d/e/1FAIpQLScXURZpiSKsh6At6rxDz1rmB6AD4L1jPU6b6kdx3JTKERoKYw/viewform"
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0">
+                        Loading…
+                    </iframe>
+                    
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScXURZpiSKsh6At6rxDz1rmB6AD4L1jPU6b6kdx3JTKERoKYw/viewform" 
+                           target="_blank" 
+                           class="cta-button">
+                            Open Form in New Tab
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="involve" class="get-involved">
+            <div class="container">
+                <h2 class="section-title loading">Get Involved</h2>
+                <p class="section-subtitle loading">Join our mission to eliminate food waste and support our community</p>
+                
+                <div class="get-involved-grid">
+                    <div class="involvement-card loading">
+                        <i class="fas fa-hands-helping"></i>
+                        <h3>Join as NGO Partner</h3>
+                        <p>Partner with us to receive food donations for your programs and expand your community impact.</p>
+                        <a href="#" class="cta-button">Partner With Us</a>
+                    </div>
+                    <div class="involvement-card loading">
+                        <i class="fas fa-heart"></i>
+                        <h3>Volunteer</h3>
+                        <p>Help with food pickup, sorting, and distribution. Make a direct impact in your community.</p>
+                        <a href="#" class="cta-button">Volunteer Now</a>
+                    </div>
+                    <div class="involvement-card loading">
+                        <i class="fas fa-truck"></i>
+                        <h3>Transport Provider</h3>
+                        <p>Provide transportation services to help move food from donors to distribution centers.</p>
+                        <a href="#" class="cta-button">Offer Transport</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact" class="impact-dashboard">
+            <div class="container">
+                <h2 class="section-title loading">Our Community Impact</h2>
+                <p class="section-subtitle loading">See the real-time difference we're making together</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card loading">
+                        <div class="stat-icon">🍽️</div>
+                        <div class="stat-number" data-target="15420">0</div>
+                        <p>Meals Served</p>
+                    </div>
+                    <div class="stat-card loading">
+                        <div class="stat-icon">🏪</div>
+                        <div class="stat-number" data-target="248">0</div>
+                        <p>Partner Restaurants</p>
+                    </div>
+                    <div class="stat-card loading">
+                        <div class="stat-icon">🤝</div>
+                        <div class="stat-number" data-target="89">0</div>
+                        <p>NGO Partners</p>
+                    </div>
+                    <div class="stat-card loading">
+                        <div class="stat-icon">🌱</div>
+                        <div class="stat-number" data-target="5680">0</div>
+                        <p>KG Waste Prevented</p>
+                    </div>
+                </div>
+
+                <div class="impact-highlights">
+                    <div class="highlight-card loading">
+                        <h3>This Month's Achievement</h3>
+                        <p>🎉 We've successfully prevented <strong>1,200 KG</strong> of food waste from ending up in landfills, while serving <strong>3,500 nutritious meals</strong> to families in need.</p>
+                    </div>
+                    <div class="highlight-card loading">
+                        <h3>Environmental Impact</h3>
+                        <p>🌍 By redirecting food waste, we've saved approximately <strong>2.4 tons of CO2</strong> emissions that would have been generated from landfill decomposition.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Save & Serve</h4>
+                    <p>Connecting surplus food with hungry communities. Together, we can eliminate food waste and fight hunger.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#why">Why It Matters</a>
+                    <a href="#how">How It Works</a>
+                    <a href="#register">Register Food</a>
+                    <a href="#involve">Get Involved</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> hello@saveandserve.org</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Community St, City, State</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Save & Serve. All rights reserved. Made with ❤️ for the community.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to 'light'
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️ Light';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isLight = !body.hasAttribute('data-theme') || body.getAttribute('data-theme') === 'light';
+            
+            if (isLight) {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️ Light';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '🌙 Dark';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all loading elements
+        document.querySelectorAll('.loading').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(254, 254, 254, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'var(--warm-white)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Trigger counter animation when impact section is visible
+        const impactSection = document.querySelector('.impact-dashboard');
+        if (impactSection) {
+            const impactObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        impactObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            impactObserver.observe(impactSection);
+        }
