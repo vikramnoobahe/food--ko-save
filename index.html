@@ -487,8 +487,48 @@
             color: #888;
         }
 
+
+        .phone-nav-menu{
+            display:none
+        }
         /* Responsive Design */
         @media (max-width: 768px) {
+
+
+
+            .phone-nav-menu-active{
+                
+                z-index: 10000000;
+                display:block;
+                display:flex;
+                position: fixed;
+                height: 450px;
+                width: 200px;
+                background-color: rgb(0, 255, 255);
+                color:white;
+                flex-direction: column;
+                padding: 1rem;
+                text-decoration: none;
+                list-style-type: none;
+                color:wheat;
+                font-size: 1rem;
+                font-weight: 800;
+                justify-content: space-evenly;
+
+
+            }   
+
+            .phone-nav-menu a{ 
+                
+                text-decoration: none;
+                list-style-type: none;
+                color:blue;
+                font-size: 1rem;
+                font-weight: 800;
+                line-height: 3rem;
+                
+            } 
+
             .nav-menu {
                 position: fixed;
                 left: -100%;
@@ -593,7 +633,7 @@
     <header>
         <nav class="container">
             <a href="#" class="logo">🌱 Save & Serve</a>
-            <div class="nav-toggle" id="nav-toggle">
+            <div class="nav-toggle" id="nav-toggle" type="button" >
                 <span></span>
                 <span></span>
                 <span></span>
@@ -605,9 +645,21 @@
                 <li><a href="#register">Register Food</a></li>
                 <li><a href="#involve">Get Involved</a></li>
                 <li><a href="#impact">Our Impact</a></li>
-                <li><button class="theme-toggle" id="theme-toggle">🌙 Dark</button></li>
+                <li><button class="theme-toggle" id="theme-toggle">🌙 Dark </button></li>
             </ul>
         </nav>
+
+        <div class="phone-nav">
+            <ul class="phone-nav-menu" id="-phone-nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#why">Why It Matters</a></li>
+                <li><a href="#how">How It Works</a></li>
+                <li><a href="#register">Register Food</a></li>
+                <li><a href="#involve">Get Involved</a></li>
+                <li><a href="#impact">Our Impact</a></li>
+                <li><button class="theme-toggle" id="theme-toggle">🌙 Dark </button></li>
+            </ul>
+        </div>
     </header>
 
     <main>
@@ -762,11 +814,11 @@
                 <div class="impact-highlights">
                     <div class="highlight-card loading">
                         <h3>This Month's Achievement</h3>
-                        <p>🎉 We've successfully prevented <strong>1,200 KG</strong> of food waste from ending up in landfills, while serving <strong>3,500 nutritious meals</strong> to families in need.</p>
+                        <p>🎉 We've successfully prevented <strong>00 KG</strong> of food waste from ending up in landfills, while serving <strong>00 nutritious meals</strong> to families in need.</p>
                     </div>
                     <div class="highlight-card loading">
                         <h3>Environmental Impact</h3>
-                        <p>🌍 By redirecting food waste, we've saved approximately <strong>2.4 tons of CO2</strong> emissions that would have been generated from landfill decomposition.</p>
+                        <p>🌍 By redirecting food waste, we've saved approximately <strong>0.0 tons of CO2</strong> emissions that would have been generated from landfill decomposition.</p>
                     </div>
                 </div>
             </div>
@@ -819,6 +871,13 @@
     </footer>
 
     <script>
+        const navBtn = document.querySelector('#nav-toggle');
+        const bar = document.querySelector('.phone-nav-menu');
+
+        navBtn.addEventListener('click', () => {
+            console.log("hiii");
+            bar = classList.add('phone-nav-menu-active');
+        })
         // Theme Toggle
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
@@ -947,3 +1006,6 @@
             
             impactObserver.observe(impactSection);
         }
+
+
+    </script>
